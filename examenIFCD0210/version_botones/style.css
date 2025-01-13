@@ -1,0 +1,101 @@
+:root {
+    --color-primary: hsl(0, 0%, 100%);
+    --color-secondary: hsl(217, 12%, 63%); 
+
+}
+
+body{
+    background-color: hsl(216, 12%, 8%);
+    color: hsl(0, 0%, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0
+}
+
+
+.container{
+    background: linear-gradient(to right,hsl(213, 19%, 18%), hsl(217, 12%, 63%));
+    font-family: "Overpass", serif;
+    width: 375px;
+    margin: 30px;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+}
+
+.final-container{
+    background: linear-gradient(to right,hsl(213, 19%, 18%), hsl(217, 12%, 63%));
+    font-family: "Overpass", serif;
+    width: 375px;
+    margin: 30px;
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.final-message{
+    color: hsl(25, 97%, 53%);
+    border-radius: 20px;
+    background-color: hsl(217, 12%, 63%);
+    border: 1px solid hsl(216, 12%, 8%);
+    padding: 10px;
+}
+
+.highlighted-message{
+    font-weight: bold;
+    font-size: 2em;
+    color: hsl(0, 0%, 100%);
+}
+
+
+.icon{
+    width: 30px;
+    height: 30px;
+    background-color: hsl(213, 19%, 18%);
+    border-radius: 50px;
+    border: 1px solid hsl(216, 12%, 8%);
+}
+
+.rating-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.rating-item button {
+    width: 40px;
+    height: 40px;
+    border:  1px solid hsl(217, 12%, 63%);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: hsl(217, 12%, 63%);
+}
+.rating-item button:hover{
+    background-color: hsl(25, 97%, 53%);
+}
+        
+.rating-item button.selected {
+    background-color: hsl(216, 12%, 8%);
+    color: #fff;
+}
+
+.boton-enviar{
+    display: block;       
+    width: 100%;       
+    padding: 10px;        
+    font-size: 16px;       
+    border: none;        
+    background-color: hsl(25, 97%, 53%);
+    color: hsl(216, 12%, 8%);
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 10px;
+}

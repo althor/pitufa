@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Prueba Examen Mar" />
+    <title>Prueba Examen Mar</title>
+    <link rel="shortcut icon" href="favicon-32x32.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="main.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <div class="container">
+        <img src="./img/icon-star.svg" class="icon" />
+        <p class="highlighted-message">¿Como lo hicimos?</p>
+        <p>
+          Por favor, haznos saber cómo lo hicimos con tu solicitud de soporte.
+        </p>
+        <p>
+          Todos los comentarios son bienvenidos para ayudarnos a mejorar nuestra
+          oferta!
+        </p>
+        <div class="formulario">
+          <form action="/submit" method="post">
+            <div class="rating-container">
+              <div class="rating-item">
+                <input type="radio" id="rating1" name="rating" value="1" />
+                <label for="rating1">1</label>
+              </div>
+              <div class="rating-item">
+                <input type="radio" id="rating2" name="rating" value="2" />
+                <label for="rating2">2</label>
+              </div>
+              <div class="rating-item">
+                <input type="radio" id="rating3" name="rating" value="3" />
+                <label for="rating3">3</label>
+              </div>
+              <div class="rating-item">
+                <input type="radio" id="rating4" name="rating" value="4" />
+                <label for="rating4">4</label>
+              </div>
+              <div class="rating-item">
+                <input type="radio" id="rating5" name="rating" value="5" />
+                <label for="rating5">5</label>
+              </div>
+            </div>
+            <input type="submit" value="Enviar" class="boton-enviar">
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

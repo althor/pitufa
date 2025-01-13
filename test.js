@@ -37,7 +37,9 @@ function adivinar() {
 }
 
 // AÑADIR COMO LISTENER UNA FUNCIÓN EXISTENTE
-document.querySelector('#buttonElevarPotencia').addEventListener('click',(() => elevarA()));
+document
+  .querySelector("#buttonElevarPotencia")
+  .addEventListener("click", () => elevarA());
 // document.querySelector('#buttonElevarPotencia').addEventListener('click',elevarA);
 
 // AÑADIR COMO LISTENER UN TROZO DE CÓDIGO
@@ -47,9 +49,6 @@ document.querySelector('#buttonElevarPotencia').addEventListener('click',(() => 
 // document.querySelector('#buttonElevarPotencia').addEventListener('click',(function () {
 //   alert('mensaje desde el listener como funcion anonima');
 // }));
-
-
-
 
 // EJEMPLO DE CALLBACK
 //Creamos una función que se va a pasar como argumento a otra función distinta
@@ -117,3 +116,27 @@ function consultarContactos() {
 document
   .querySelector("#buttonConsultarContactos")
   .addEventListener("click", () => consultarContactos());
+
+function crearComboTallas() {
+  // supongamos que pedimos las tallas al servidor y nos ha devuelto esta lista:
+  let sizes = [
+    { id: 1, size: "s" },
+    { id: 2, size: "m" },
+    { id: 3, size: "l" },
+    { id: 4, size: "xl" },
+  ];
+
+
+  let select = "<select>";
+
+  sizes.forEach((item) => {
+    select += `<option value="${item.id}">${item.size}</option>`;
+  });
+
+  select += "</select>";
+
+  let formulario = document.querySelector("#contactform");
+  formulario.insertAdjacentHTML("beforeend", select);
+}
+
+crearComboTallas();
