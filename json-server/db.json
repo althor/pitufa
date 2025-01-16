@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "a1c4",
+      "name": "Pepe",
+      "age": 22
+    },
+    {
+      "id": "c939",
+      "name": "Luisa",
+      "age": 27
+    }
+  ],
+  "tasks": [
+    {
+      "id": "e1ec6331",
+      "title": "Diseño en figma de la Guia de Estilos",
+      "owner": "Pepe",
+      "isDone": true
+    },
+    {
+      "id": "16b6985d",
+      "title": "Diseño en figma de la Aplicación",
+      "owner": "Ernestina",
+      "isDone": true
+    },
+    {
+      "id": "36a7d4d1",
+      "title": "Creación del HTML",
+      "owner": "Ernestina",
+      "isDone": false
+    },
+    {
+      "id": "024e01a1",
+      "title": "Creación del CSS",
+      "owner": "Pepe",
+      "isDone": false
+    }
+  ]
+}
