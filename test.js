@@ -140,3 +140,9 @@ function crearComboTallas() {
 }
 
 crearComboTallas();
+
+
+
+let cosa;
+cosa = 4;
+cosa = "leonchi";
