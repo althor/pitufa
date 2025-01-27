@@ -18,5 +18,6 @@ app.use(express.urlencoded({ extended: true }));
  * Primary app routes.
  */
 app.get("/books", booksController.findAll);
+app.get("/books/:id", booksController.findById);
 
 export default app;
