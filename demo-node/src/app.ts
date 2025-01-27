@@ -1,14 +1,23 @@
-const express = require("express");
-import { Request, Response } from "express";
-var app = express();
-interface RequestHandler {
-  (req: Request, res: Response): void;
-}
+import express from "express";
+import bodyParser from "body-parser";
+import path from "path";
 
-app.get("/", function (request: Request, response: Response) {
-  console.log("Received request from %s", request.ip);
-  response.send("Hello World!");
-});
-app.listen(10000, function () {
-  console.log("Started application on port %d", 10000);
-});
+// Controllers (route handlers)
+import * as booksController from "./controllers/books";
+
+// Create Express server
+const app = express();
+
+// Express configuration
+app.set("port", process.env.PORT || 3000);
+app.set("views", path.join(__dirname, "../views"));
+app.set("view engine", "pug");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/**
+ * Primary app routes.
+ */
+app.get("/books", booksController.findAll);
+
+export default app;
