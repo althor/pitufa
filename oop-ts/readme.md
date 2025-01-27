@@ -274,3 +274,26 @@ let administrador1: Administrador = new Administrador(
   'Super Admin',
 );
 ```
+
+## Cuándo usar cada uno
+
+### Usar Tipos cuando:
+
+- Creación de tipos de unión o intersección
+- Creación de tipos mapeados
+- Necesidad de trabajar con tipos primitivos
+- Creación de expresiones de tipos complejos
+
+### Utilizar Interfaces cuando:
+
+- Definir formas de objetos
+- Necesidad de extender/implementar en clases
+- Necesidad de fusión de declaraciones
+- Trabajar con diseño orientado a objetos
+
+### Usar Clases cuando:
+
+- Necesidad de crear instancias
+- Necesidad de implementar métodos
+- Necesidad de herencia con implementación
+- Trabajar con programación orientada a objetos
