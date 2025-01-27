@@ -1,10 +1,9 @@
 {
-    "name": "demo-node",
+    "name": "demo-ts",
     "version": "1.0.0",
-    "main": "index.js",
     "type": "module",
     "scripts": {
-        "build": "tsc -w",
+        "build": "tsc",
         "test": "vitest",
         "lint": "eslint ."
     },

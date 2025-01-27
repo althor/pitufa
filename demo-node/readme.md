@@ -26,7 +26,7 @@ Reviso los valores de tsconfig.ts
 
 Añado el script en package.json
 
-`"build": "tsc -w"`
+`"build": "tsc"`
 
 ## Linter
 
