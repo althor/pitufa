@@ -1,26 +1,14 @@
 {
-  "name": "demo-node",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-      "build": "tsc -w",
-      "test": "vitest"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-      "@eslint/js": "^9.18.0",
-      "eslint": "^9.18.0",
-      "globals": "^15.14.0",
-      "prettier": "^3.4.2",
-      "typescript": "^5.7.3",
-      "typescript-eslint": "^8.20.0",
-      "vitest": "^2.1.8"
-  },
-  "prettier": {
-      "singleQuote": true
+    "name": "sample-node-project",
+    "version": "1.0.0",
+    "description": "Sample Node.js Project",
+    "main": "app.js",
+    "scripts": {
+      "start": "node src/app.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "ISC",
+    "dependencies": {
+      "express":"latest"
+    }
   }
-}
