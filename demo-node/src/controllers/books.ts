@@ -33,3 +33,37 @@ export async function findById(req: Request, res: Response) {
       });
     });
 }
+
+export async function deleteById(req: Request, res: Response) {
+  console.log("/books/:id invoked");
+  const id = parseInt(req.params.id);
+  BookService.deleteById(id)
+    .then((result) => {
+      if (!result) {
+        res.status(404).json({
+          message: "Book not found",
+        });
+      } else {
+        res.status(204).send();
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Internal Server Error!",
+      });
+    });
+}
+
+export async function create(req: Request, res: Response) {
+  console.log("/books invoked");
+  const book = req.body;
+  BookService.create(book)
+    .then((book) => {
+      res.status(201).json(book);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Internal Server Error!",
+      });
+    });
+}

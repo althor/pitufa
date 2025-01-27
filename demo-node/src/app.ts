@@ -19,5 +19,7 @@ app.use(express.urlencoded({ extended: true }));
  */
 app.get("/books", booksController.findAll);
 app.get("/books/:id", booksController.findById);
+app.delete("/books/:id", booksController.deleteById);
+app.post("/books", booksController.create);
 
 export default app;
