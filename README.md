@@ -31,6 +31,6 @@ Ejemplo de frontal realizado con react + vite
 
 Ejemplo de frontal realizado con vue + vite
 
-# json-server
+## json-server
 
 Ejemplo de uso de la herramienta json-server para levantar una maqueta de un servidor rest json
