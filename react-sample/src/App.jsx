@@ -2,6 +2,8 @@ import React from "react";
 
 import Header from "./Header.jsx";
 import Item from "./Item.jsx";
+import Header2 from "./Header2.jsx";
+import Item2 from "./Item2.jsx";
 
 import "./App.css";
 
@@ -25,6 +27,7 @@ class App extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toogleTodo = this.toogleTodo.bind(this);
   }
 
   handleChange(event) {
@@ -49,6 +52,13 @@ class App extends React.Component {
     console.log(this.state);
   }
 
+  toogleTodo(index) {
+    let items = this.state.items.slice();
+    let item = items[index];
+    item.done = !item.done;
+    this.setState({ items: items });
+  }
+
   render() {
     return (
       <div>
@@ -63,8 +73,14 @@ class App extends React.Component {
           <input type="submit" value="Add Item" />
         </form>
         <ol>
-          {this.state.items.map((item) => (
-            <Item key={item.id} done={item.done} text={item.text} />
+          {this.state.items.map((item, index) => (
+            <Item key={item.id} clickHandler={() => this.toogleTodo(index)} done={item.done} text={item.text} />
+          ))}
+        </ol>
+        <Header2 />
+        <ol>
+          {this.state.items.map((item, index) => (
+            <Item2 key={item.id} clickHandler={() => this.toogleTodo(index)} done={item.done} text={item.text} />
           ))}
         </ol>
       </div>

@@ -6,7 +6,7 @@ class Item extends React.Component {
     return (
       <li>
         <label>
-          <input type="checkbox" checked={this.props.done || false} />
+          <input type="checkbox" checked={this.props.done || false} onClick={this.props.clickHandler}/>
           <span>{this.props.text}</span>
         </label>
       </li>
