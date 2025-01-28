@@ -111,7 +111,7 @@ Sirven para encapsular juntos datos (atributos/propiedades de la calse) con cód
 
 ¿Son un tipo? Sí, al definir una clase XXX estás definiendo un nuevo tipo llamado XXX. Un tipo más poderoso porque le puedes definir funciones propias, le puedes definir herencia desde otra clase...
 
-Nota: La herencia de clases en OOP funciona básicamente igual que lo que se llama cascada en los CSS. El elemento de abajo hereda todo lo que tengan sus antecesores.
+**Nota**: La herencia de clases en OOP funciona básicamente igual que lo que se llama cascada en los CSS. El elemento de abajo hereda todo lo que tengan sus antecesores.
 
 ### Ejemplo
 
@@ -193,7 +193,7 @@ Con `Typescript` se amplía `javascript` con la posibilidad de definir nuestros 
 - Permiten restringir los valores del tipo como tipos literales.
 - Variables del tipo se crean del modo habitual
 
-Nota: (el `new` se usa para crear objetos/instancias a partir de una `class`)
+**Nota**: (el `new` se usa para crear objetos/instancias a partir de una `class`)
 
 ### Ejemplos
 
@@ -267,9 +267,13 @@ Una interfaz define la cara de fuera (la interfaz, el contrato) de un objeto o d
 
 Actúa como un contrato. Establece las propiedades o funciones que un objeto o clase debe implementar para cumplir con la interfaz.
 
+Una interfaz en programación es un contrato que define un conjunto de métodos y propiedades que una clase debe implementar, sin especificar cómo estos métodos y propiedades deben ser implementados.
+
+Las interfaces se utilizan para garantizar un cierto nivel de abstracción y para imponer una estructura en el código, haciéndolo más modular y fácil de gestionar.
+
 Igual que las clases, las interfaces también pueden extender unas de otras y, por tanto, la de abajo dispone de las propieades/funciones que definan las de encima.
 
-Nota: Una interfaz es solo definición de un contrato. No tiene implementación. Las clases sí tienen implementación.
+**Nota**: Una interfaz es solo definición de un contrato. No tiene implementación. Las clases sí tienen implementación.
 
 Las interfaces se implementan en un objeto o en una clase. En el caso de una clase se indica que una clase implementa una determinada interfaz así: `class MiClase implements MiInterfaz`
 
@@ -314,7 +318,7 @@ Se puede crear un objeto del tipo de una interfaz. En este caso al ser una inter
 
 En este caso estamos obligados a que nuestro objeto `Admin` implemente una función con esta interfaz `greet(): string`
 
-Nota: Este uso no es el más común. El uso de interfaces es en relación a la orientación objetos. Lo suyo es crear clases que implementen esa interfaz y crear objetos de esa clase con `new MiClase(...)`
+**Nota**: Este uso no es el más común. El uso de interfaces es en relación a la orientación objetos. Lo suyo es crear clases que implementen esa interfaz y crear objetos de esa clase con `new MiClase(...)`
 
 ```typescript
 let admin: Admin = {
