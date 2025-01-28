@@ -367,6 +367,8 @@ let administrador1: Administrador = new Administrador(
 
 ### Usar Tipos cuando:
 
+- Quieres definir un tipo nuevo como combinación de otros tipos
+- Quieres definir un tipo para un subconjunto de valores literales específicos
 - Creación de tipos de unión o intersección
 - Creación de tipos mapeados
 - Necesidad de trabajar con tipos primitivos
@@ -374,6 +376,8 @@ let administrador1: Administrador = new Administrador(
 
 ### Utilizar Interfaces cuando:
 
+- Vas a modelar conceptos del negocio (ej. Usuario, Persona, Pelicula, Factura...)
+- Establecer una estructura que deben cumplir unos objetos
 - Definir formas de objetos
 - Necesidad de extender/implementar en clases
 - Necesidad de fusión de declaraciones
@@ -381,6 +385,8 @@ let administrador1: Administrador = new Administrador(
 
 ### Usar Clases cuando:
 
+- Vas a modelar conceptos - Vas a modelar conceptos del negocio (ej. Usuario, Persona, Pelicula, Factura...)
+  negocio
 - Necesidad de crear instancias
 - Necesidad de implementar métodos
 - Necesidad de herencia con implementación
