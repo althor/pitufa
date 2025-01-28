@@ -1,5 +1,89 @@
 # OOP - tipos, interfaces, clases
 
+## Conceptos clave
+
+1. **Clases y Objetos**:
+
+- _Clase_: Es una plantilla o blueprint para crear objetos. Define propiedades (atributos) y métodos (funciones) que los objetos creados a partir de la clase pueden tener.
+
+      Una clase es un tipo. Cuando definimos una clase estamos definiendo un tipo nuevo. Pero es un tipo especial, con más capacidades que lo que es un simple tipo. Puedes definir además métodos que pertenecen a ese tipo y que va a ofrecer cada objeto/instancia que crees de esa clase/tipo.
+
+- _Objeto_: Es una instancia de una clase. Representa una entidad con propiedades y comportamiento definidos por la clase.
+
+2. **Encapsulamiento**:
+   El encapsulamiento es el concepto de agrupar datos (atributos) y métodos (funciones) en una única unidad llamada clase. Restringe el acceso directo a algunos de los componentes de un objeto, lo que puede prevenir la modificación accidental de datos.
+
+3. **Herencia**:
+   La herencia permite que una nueva clase (clase derivada) herede propiedades y métodos de una clase existente (clase base). Esto promueve la reutilización del código y establece una jerarquía natural entre clases.
+
+4. **Polimorfismo**:
+   El polimorfismo permite que los métodos hagan cosas diferentes basadas en el objeto sobre el que están actuando. Se puede lograr a través de la sobrescritura de métodos (el mismo nombre de método en una clase derivada) y la sobrecarga de métodos (el mismo nombre de método con diferentes parámetros).
+
+5. **Abstracción**:
+   La abstracción es el concepto de ocultar los detalles complejos de la implementación y mostrar solo las características esenciales del objeto. Proporciona una separación clara entre lo que hace un objeto y cómo lo hace.
+
+```typescript
+// Clase base
+class Animal {
+  // Propiedad encapsulada
+  private name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  // Método abstracto
+  speak(): void {
+    throw new Error(
+      'Método abstracto, debe ser implementado por la clase derivada',
+    );
+  }
+
+  // Método para obtener el nombre
+  getName(): string {
+    return this.name;
+  }
+}
+
+// Clase derivada
+class Dog extends Animal {
+  // Sobrescritura del método speak
+  speak(): void {
+    console.log(`${this.getName()} dice Woof!`);
+  }
+}
+
+// Clase derivada
+class Cat extends Animal {
+  // Sobrescritura del método speak
+  speak(): void {
+    console.log(`${this.getName()} dice Meow!`);
+  }
+}
+
+// Creando objetos
+const dog = new Dog('Buddy');
+const cat = new Cat('Whiskers');
+
+// Usando polimorfismo
+const animals: Animal[] = [dog, cat];
+animals.forEach((animal) => animal.speak());
+```
+
+### Explicación
+
+- **Clase y Objeto**: Animal es una clase base, y Dog y Cat son clases derivadas. dog y cat son objetos de Dog y Cat, respectivamente.
+
+- **Encapsulamiento**: La propiedad name está encapsulada dentro de la clase Animal y solo es accesible a través del método getName.
+
+- **Herencia**: Las clases Dog y Cat heredan de la clase Animal.
+
+- **Polimorfismo**: El método speak es implementado de manera diferente en las clases Dog y Cat, y el método correcto se llama basado en el tipo de objeto.
+
+- **Abstracción**: La clase Animal proporciona un método abstracto speak que debe ser implementado por las clases derivadas, ocultando los detalles de la implementación específica.
+
+OOP ayuda a organizar el código, haciéndolo modular y más fácil de mantener. Este enfoque es útil en aplicaciones grandes y complejas, donde la estructura clara y la reutilización del código son esenciales.
+
 ## Javascript nativo
 
 Javascript ofrece la posibilidad de definir Clases usando la palabra reservada `class`
