@@ -1,8 +1,8 @@
-import { Company } from './Company';
-import { Product } from './Product';
-import { Invoice } from './Invoice';
-import { Contact } from './Contact';
-import { Phone } from './Phone';
+import { Company } from './Company.js';
+import { Product } from './Product.js';
+import { Invoice } from './Invoice.js';
+import { Contact } from './Contact.js';
+import { Phone } from './Phone.js';
 
 const client1 = new Company('5656565843D', 'Acme', new Contact('Juan Lopez', new Phone("+34","999555444"), "jlopez@ñalala.com"));
 const apples = new Product('123', 'apples', 4);

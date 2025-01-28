@@ -1,7 +1,7 @@
-import { Company } from './Company';
-import { Contact } from './Contact';
-import { Phone } from './Phone';
-import { Product } from './Product';
+import { Company } from './Company.js';
+import { Contact } from './Contact.js';
+import { Phone } from './Phone.js';
+import { Product } from './Product.js';
 
 export class Invoice {
     static #brand = new Company('68323392y', 'Boracay', new Contact("José Perez", new Phone("+34","999555444"), "jperez@ñalala.com"));
