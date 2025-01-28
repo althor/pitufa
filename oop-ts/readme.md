@@ -391,3 +391,11 @@ let administrador1: Administrador = new Administrador(
 - Necesidad de implementar métodos
 - Necesidad de herencia con implementación
 - Trabajar con programación orientada a objetos
+
+## Polimorfismo
+
+Ejemplo en la carpeta `polimorfismo`.
+
+El polimorfismo es útil cuando quieres escribir código que pueda trabajar con objetos de diferentes tipos de una manera uniforme.
+
+Por ejemplo, en un juego, puedes tener diferentes tipos de personajes (por ejemplo, guerreros, arqueros, magos) que necesitan realizar acciones como atacar. Definiendo una interfaz común, puedes manejar estos diferentes tipos de personajes usando el mismo trozo de código.
