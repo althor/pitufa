@@ -23,6 +23,10 @@ Ejemplo de interfaz realizada con astro
 
 Ejemplo de frontal realizado con typescript + vite
 
+## react-sampel
+
+Ejemplo de frontal realizado con react jsx
+
 ## vite-react-sample
 
 Ejemplo de frontal realizado con react + vite
@@ -30,6 +34,10 @@ Ejemplo de frontal realizado con react + vite
 ## vite-vue-sample
 
 Ejemplo de frontal realizado con vue + vite
+
+## demo-node
+
+Ejemplo de aplicación back node js con express
 
 ## json-server
 
