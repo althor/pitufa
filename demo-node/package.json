@@ -8,6 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
+  "dependencies": {
+    "express": "latest",
+    "cors": "^2.8.5"
+  },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.10",
