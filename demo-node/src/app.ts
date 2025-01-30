@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import cors from "cors";
 
 // Controllers (route handlers)
 import * as booksController from "./controllers/books";
@@ -12,6 +13,7 @@ app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 /**
