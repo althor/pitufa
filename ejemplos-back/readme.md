@@ -1,5 +1,10 @@
 # Ejemplos de algunas funcionalidades ejecutando en servidor
 
+- [Acceso a variables de entorno](#acceso-a-variables-de-entorno)
+- [Lectura de argumentos de ejecución](#lectura-de-argumentos-de-ejecución)
+- [Acceso al sistema de ficheros](#acceso-al-sistema-de-ficheros)
+- [CRUD sobre datos JSON](#crud-sobre-datos-json)
+
 ## Acceso a variables de entorno
 
 Las variables de entorno son parejas nombre-texto que existen en el sistema operativo y permiten usarlas para parametrizar y configurar el funcionamiento de una aplicación.
