@@ -211,9 +211,9 @@ El fichero se está creando en la carpeta data, que se debe crear manualmente, f
 
 Como servicio podemos crear los métodos que permitan realizar las operaciones CRUD sobre los datos del fichero JSON, es decir que leen, escriben, insertan y borran, como un ORM/ODM básico para nuestro fichero JSON.
 
-#### Modelo de datos
+### Modelo de datos
 
-Para trabajar con los datos del fichero JSON, se puede definir un modelo de datos que represente la estructura de los datos. En este caso, se puede usar un tipo / interfaz de TypeScript para definir la estructura de los datos de las notas. O como clase si se necesita más "potencia", por ejemplo poder crear instancias mediante `new`.
+Para trabajar con los datos del fichero JSON, se puede definir un modelo de datos que represente la estructura de los datos. En este caso, se puede usar un _tipo / interfaz_ de TypeScript para definir la estructura de los datos de las notas. O como _clase_ si se necesita más "potencia", por ejemplo poder crear instancias mediante `new`.
 
 ```typescript
 export interface User {
@@ -251,7 +251,7 @@ export class User {
 }
 ```
 
-#### Operaciones
+### Operaciones
 
 Para realizar las operaciones CRUD sobre los datos del fichero JSON, se pueden definir los métodos que permitan leer, escribir, insertar y borrar datos del fichero.
 
@@ -301,7 +301,7 @@ const deleteUser = async (id: number) => {
 };
 ```
 
-### Ejemplos
+#### Ejemplos
 
 - **json_crud_synchronous.ts** : ejemplo de uso de funciones síncronas
 - **json_crud_asynchronous.ts**: ejemplo de uso de funcione asíncronas por medio de promesas
@@ -314,7 +314,7 @@ Ambos script están preparados para recibir la ruta de la carpeta de la informac
 /ejemplos-back  node dist/json_crud_asynchronous.ts --dataFolder=./data
 ```
 
-#### Abstracción, Uso de Genéricos
+### Abstracción, Uso de Genéricos
 
 Para hacer el servicio más genérico, abstraer el tipo de datos y permitir trabajar con cualquier tipo de datos, se puede usar un tipo genérico en lugar de un tipo específico.
 
