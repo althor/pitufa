@@ -42,3 +42,7 @@ Ejemplo de aplicación back node js con express
 ## json-server
 
 Ejemplo de uso de la herramienta json-server para levantar una maqueta de un servidor rest json
+
+## ejemplos-back
+
+Ejemplos de algunas funcionalidades de ejecución de javascript en servidor
