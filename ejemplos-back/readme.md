@@ -117,6 +117,7 @@ El módulo **fs** de Node incluye las principales funciones para trabajar con fi
 - fs.stat() to get information about a file
 - fs.unlink() to delete a file
 - fs.rename() to rename a file
+- fs.exists() to check if a file exists
 
 El módulo **path** proporciona las funciones para recorrer el árbol de carpetas del sistema de ficheros.
 
@@ -176,7 +177,7 @@ writePromise.then(() => console.log('Fichero escrito!!'));
 ### Ejemplos
 
 - **filesystem_synchronous.ts** : ejemplo de uso de funciones síncronas
-- **filesystem_asynchronous.ts**: ejemplo de uso de funcinoes asíncronas por medio de promesas
+- **filesystem_asynchronous.ts**: ejemplo de uso de funcione asíncronas por medio de promesas
 
 Ambos script están preparados para recibir la ruta de la carpeta de la información en el argumento `dataFolder`
 
@@ -184,4 +185,191 @@ Ambos script están preparados para recibir la ruta de la carpeta de la informac
 /ejemplos-back  node dist/filesystem_synchronous.js --dataFolder=./data
 
 /ejemplos-back  node dist/filesystem_asynchronous.js --dataFolder=./data
+```
+
+## CRUD sobre datos JSON
+
+Esto proviene del fichero `<repo del profesor>/9.Node/info/info.node.md`
+
+El formato **JSON** es muy común para almacenar datos en ficheros, ya que es fácil de leer y escribir, y se puede convertir a objetos de JavaScript de forma sencilla. Es posible usar un fichero JSON para almacenar datos de forma persistente, como si fuera una base de datos, implementando como un servicio las operaciones **CRUD** (Create, Read, Update, Delete) sobre los datos.
+
+El fichero puede crearse de forma manual, pero también se puede crear de forma automática si no existe, para lo que se puede usar el método `fs.existsSync()` para comprobar si el fichero existe, y `fs.writeFileSync()` para crearlo.
+
+```typescript
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const filePath = fileURLToPath(
+  new URL('../data/notes.db.json', import.meta.url),
+);
+if (!fs.existsSync(filePath)) {
+  fs.writeFileSync(filePath, '[]', 'utf-8');
+}
+```
+
+El fichero se está creando en la carpeta data, que se debe crear manualmente, fuera de dist, para hacer posible su subida a GitHub. Al inicializarla como un array vacío, y tratándose de una operación que solo se ejecuta una vez, no es necesario que sea asíncrona.
+
+Como servicio podemos crear los métodos que permitan realizar las operaciones CRUD sobre los datos del fichero JSON, es decir que leen, escriben, insertan y borran, como un ORM/ODM básico para nuestro fichero JSON.
+
+#### Modelo de datos
+
+Para trabajar con los datos del fichero JSON, se puede definir un modelo de datos que represente la estructura de los datos. En este caso, se puede usar un tipo / interfaz de TypeScript para definir la estructura de los datos de las notas. O como clase si se necesita más "potencia", por ejemplo poder crear instancias mediante `new`.
+
+```typescript
+export interface User {
+  id: string;
+  username: string;
+  mail: string;
+  pwd: string;
+}
+```
+
+```typescript
+export type User {
+  id: string;
+  username: string;
+  mail: string;
+  pwd: string;
+}
+```
+
+o como clase
+
+```typescript
+export class User {
+  id: number;
+  username: string;
+  mail: string;
+  pwd: string;
+
+  constructor(id: number, username: string, mail: string, pwd: string) {
+    this.id = id;
+    this.username = username;
+    this.mail = mail;
+    this.pwd = pwd;
+  }
+}
+```
+
+#### Operaciones
+
+Para realizar las operaciones CRUD sobre los datos del fichero JSON, se pueden definir los métodos que permitan leer, escribir, insertar y borrar datos del fichero.
+
+```typescript
+import fs from 'fs/promises';
+import { fileURLToPath } from 'url';
+import { Note } from './note.model';
+
+const readUsers = async (): Promise<User[]> => {
+  const content = await fs.readFile(filePath, 'utf-8');
+  return JSON.parse(content);
+};
+
+export const writeUsers = async (users: User[]): Promise<void> => {
+  await fs.writeFile(filePath, JSON.stringify(users, null, 2), 'utf-8');
+};
+
+const getUser = async (id: number) => {
+  const users = await readUsers();
+  return users.find((x: User) => x.id === id);
+};
+
+const createUser = async (user: User) => {
+  const users = await readUsers();
+  users.push(user);
+  await writeUsers(users);
+};
+
+const updateUser = async (id: number, user: User): Promise<void> => {
+  const users = await readUsers();
+  const index = users.findIndex((n: User) => n.id === user.id);
+  if (index === -1) {
+    throw new Error(`Note with id ${user.id} not found`);
+  }
+  users[index] = user;
+  await writeUsers(users);
+};
+
+const deleteUser = async (id: number) => {
+  const users = await readUsers();
+  const index = users.findIndex((n: User) => n.id === id);
+  if (index === -1) {
+    throw new Error(`Note with id ${id} not found`);
+  }
+  users.splice(index, 1);
+  await writeUsers(users);
+};
+```
+
+### Ejemplos
+
+- **json_crud_synchronous.ts** : ejemplo de uso de funciones síncronas
+- **json_crud_asynchronous.ts**: ejemplo de uso de funcione asíncronas por medio de promesas
+
+Ambos script están preparados para recibir la ruta de la carpeta de la información en el argumento `dataFolder`
+
+```bash
+/ejemplos-back  node dist/json_crud_synchronous.ts --dataFolder=./data
+
+/ejemplos-back  node dist/json_crud_asynchronous.ts --dataFolder=./data
+```
+
+#### Abstracción, Uso de Genéricos
+
+Para hacer el servicio más genérico, abstraer el tipo de datos y permitir trabajar con cualquier tipo de datos, se puede usar un tipo genérico en lugar de un tipo específico.
+
+```typescript
+const filePath = join(dataFolderPath, 'db.users.json');
+
+const read = async <T>(): Promise<T[]> => {
+  const content = await fs.readFile(filePath, 'utf-8');
+  return JSON.parse(content);
+};
+
+const write = async <T>(entities: T[]): Promise<void> => {
+  await fs.writeFile(filePath, JSON.stringify(entities, null, 2), 'utf-8');
+};
+
+const getEntity = async <T extends { id: number }>(id: number) => {
+  const entities = await read<T>();
+  return entities.find((x: T) => x.id === id);
+};
+
+const createEntity = async <T>(entity: T) => {
+  const entities = await read<T>();
+  entities.push(entity);
+  await write<T>(entities);
+};
+
+const updatEntity = async <T extends { id: number }>(
+  user: T,
+): Promise<void> => {
+  const entities = await read<T>();
+  const index = entities.findIndex((n: T) => n.id === user.id);
+  if (index === -1) {
+    throw new Error(`Note with id ${user.id} not found`);
+  }
+  entities[index] = user;
+  await write<T>(entities);
+};
+
+const deleteEntity = async <T extends { id: number }>(id: number) => {
+  const entities = await read<T>();
+  const index = entities.findIndex((n: T) => n.id === id);
+  if (index === -1) {
+    throw new Error(`Note with id ${id} not found`);
+  }
+  entities.splice(index, 1);
+  await write(entities);
+};
+```
+
+##### Ejemplos
+
+- **json_crud_generic.js**: ejemplo de uso de funcione asíncronas por medio de promesas implementado con tipo genérico, parametrizado en cada función.
+
+Ambos script están preparados para recibir la ruta de la carpeta de la información en el argumento `dataFolder`
+
+```bash
+/ejemplos-back  node dist/json_crud_generic.ts --dataFolder=./data
 ```

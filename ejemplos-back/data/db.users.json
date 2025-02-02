@@ -1,0 +1,16 @@
+[
+  { "id": 1, "username": "pandi", "mail": "pandi@mail.com", "pwd": "adf" },
+  {
+    "id": 2,
+    "username": "leonchi",
+    "mail": "leonchi@mail.com",
+    "pwd": "aewt34t"
+  },
+  { "id": 3, "username": "dino", "mail": "dino@mail.com", "pwd": "423tetyj4" },
+  {
+    "id": 4,
+    "username": "cantarina",
+    "mail": "cantarina@mail.com",
+    "pwd": "dth,be5y"
+  }
+]
