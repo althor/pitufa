@@ -105,3 +105,83 @@ Ejemplo en que ejecutamos un script pasando valores en los argumentos `dbUri`, `
 ```bash
  ~ node dist/arguments.js --dbUri="jdbc:mysql://localhost:3306/" --dbUser=root --dbPassword=296835 --enableLog
 ```
+
+## Acceso al sistema de ficheros
+
+El módulo **fs** de Node incluye las principales funciones para trabajar con ficheros y directorios. Algunas de las funciones más comunes son:
+
+- fs.readFile() to read a file
+- fs.writeFile() to write a file
+- fs.mkdir() to create a new directory
+- fs.readdir() to read the contents of a directory
+- fs.stat() to get information about a file
+- fs.unlink() to delete a file
+- fs.rename() to rename a file
+
+El módulo **path** proporciona las funciones para recorrer el árbol de carpetas del sistema de ficheros.
+
+- path.resolve() permite obtener la ruta absoluta a un fichero o directorio
+
+### Lectura de fichero
+
+Para leer un fichero de forma síncrona se usa `fs.readFileSync()`, y para leerlo de forma asíncrona se usa `fs.readFile()`.
+
+En el caso **síncrono**, se pasa la ruta del fichero y la codificación del fichero, que por defecto es utf-8. El resultado es un string con el contenido del fichero.
+
+```typescript
+import fs from 'fs';
+
+const content = fs.readFileSync(filePath, 'utf-8');
+console.log(content);
+```
+
+Si no se incluye la codificación, el resultado es un buffer con el contenido del fichero, del que se pueden obtener los datos en formato binario o convertirlos a string con el método toString.
+
+```typescript
+import fs from 'fs';
+const content = fs.readFileSync(filePath);
+console.log(content.toString());
+```
+
+En el caso **asíncrono** se usa el paquete `fs/promises` que proporcion las funciones equivalentes que devuelven un objeto `Promise`
+
+```typescript
+import fs from 'fs/promises';
+
+const readPromise = fs.readFile(filePath, 'utf-8');
+readPromise.then((content) => console.log(content));
+```
+
+### Escritura de fichero
+
+Para leer un fichero de forma síncrona se usa `fs.writeFileSync()`, y para leerlo de forma asíncrona se usa `fs.writeFile()`.
+
+En el caso **síncrono**, se pasa la ruta del fichero, el contenido y la codificación del fichero, que por defecto es utf-8.
+
+```typescript
+import fs from 'fs';
+
+fs.writeFileSync(usersOutFilePath, content, 'utf-8');
+```
+
+En el caso **asíncrono** se usa el paquete `fs/promises` que proporcion las funciones equivalentes que devuelven un objeto `Promise`
+
+```typescript
+import fs from 'fs/promises';
+
+const writePromise = fs.writeFile(usersOutFilePath, content, 'utf-8');
+writePromise.then(() => console.log('Fichero escrito!!'));
+```
+
+### Ejemplos
+
+- **filesystem_synchronous.ts** : ejemplo de uso de funciones síncronas
+- **filesystem_asynchronous.ts**: ejemplo de uso de funcinoes asíncronas por medio de promesas
+
+Ambos script están preparados para recibir la ruta de la carpeta de la información en el argumento `dataFolder`
+
+```bash
+/ejemplos-back  node dist/filesystem_synchronous.js --dataFolder=./data
+
+/ejemplos-back  node dist/filesystem_asynchronous.js --dataFolder=./data
+```
