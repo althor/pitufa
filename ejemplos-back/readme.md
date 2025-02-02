@@ -285,7 +285,7 @@ const createUser = async (user: User) => {
   await writeUsers(users);
 };
 
-const updateUser = async (id: number, user: User): Promise<void> => {
+const updateUser = async (user: User): Promise<void> => {
   const users = await readUsers();
   const index = users.findIndex((n: User) => n.id === user.id);
   if (index === -1) {
@@ -322,6 +322,12 @@ Ambos script están preparados para recibir la ruta de la carpeta de la informac
 ### Abstracción, Uso de Genéricos
 
 Para hacer el servicio más genérico, abstraer el tipo de datos y permitir trabajar con cualquier tipo de datos, se puede usar un tipo genérico en lugar de un tipo específico.
+
+**¿Qué conseguimos con ésto?** Básicamente no duplicar el mismo código para cada tipo de dato que podamos manejar en nuestra aplicación y tener el mismo código replicado n veces cuando solamente se diferencia en el tipado de las funciones.
+
+Creando el código de modo que el tipo de dato a manejar sea parametrizable, el mismo código funciona para cualquier tipo de dato que, en este caso concreto, contenga un atributo `id` de tipo `number`. Esta condición se indica en la configuración de la parametrización así: `<T extends { id: number }>`
+
+Si en nuestra aplicación modelamos conceptos como Usuario, Mascota, Curso, Tema, Alumno, Producto... etc nos ahorramos replicar el mismo código por cada uno de los tipos. 
 
 ```typescript
 const filePath = join(dataFolderPath, 'db.users.json');

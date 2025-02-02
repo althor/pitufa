@@ -399,3 +399,16 @@ Ejemplo en la carpeta `polimorfismo`.
 El polimorfismo es útil cuando quieres escribir código que pueda trabajar con objetos de diferentes tipos de una manera uniforme.
 
 Por ejemplo, en un juego, puedes tener diferentes tipos de personajes (por ejemplo, guerreros, arqueros, magos) que necesitan realizar acciones como atacar. Definiendo una interfaz común, puedes manejar estos diferentes tipos de personajes usando el mismo trozo de código.
+
+
+## Tipos genéricos
+
+Ejemplo en la carpeta `genericos`.
+
+Para hacer el servicio más genérico, abstraer el tipo de datos y permitir trabajar con cualquier tipo de datos, se puede usar un tipo genérico en lugar de un tipo específico.
+
+**¿Qué conseguimos con ésto?** Básicamente no duplicar el mismo código para cada tipo de dato que podamos manejar en nuestra aplicación y tener el mismo código replicado n veces cuando solamente se diferencia en el tipado de las funciones.
+
+Creando el código de modo que el tipo de dato a manejar sea parametrizable, el mismo código funciona para cualquier tipo de dato.
+
+Si en nuestra aplicación modelamos conceptos como Usuario, Mascota, Curso, Tema, Alumno, Producto... etc nos ahorramos replicar el mismo código por cada uno de los tipos. 
