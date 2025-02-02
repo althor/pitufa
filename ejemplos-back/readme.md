@@ -212,9 +212,26 @@ if (!fs.existsSync(filePath)) {
 }
 ```
 
-El fichero se está creando en la carpeta data, que se debe crear manualmente, fuera de dist, para hacer posible su subida a GitHub. Al inicializarla como un array vacío, y tratándose de una operación que solo se ejecuta una vez, no es necesario que sea asíncrona.
+### Leer un string formateado como JSON a memoria
 
-Como servicio podemos crear los métodos que permitan realizar las operaciones CRUD sobre los datos del fichero JSON, es decir que leen, escriben, insertan y borran, como un ORM/ODM básico para nuestro fichero JSON.
+La función `parse` de `JSON` lee un string formateado como json y lo parsea para crear en memoria los objetos representados en el string, cada uno con todos los atributos y valores del string.
+
+```typescript
+let content: string =
+  "{ id: 3, username: 'dino', mail: 'dino@mail.com', pwd: '423tetyj4' }";
+let data = JSON.parse(content);
+```
+
+### Escribir la representación json de objetos que tenemos en memoria
+
+La función `stringify` genera el string json que representa el objeto que se le pida que reprsente.
+
+```typescript
+let content: string =
+  "{ id: 3, username: 'dino', mail: 'dino@mail.com', pwd: '423tetyj4' }";
+let data = JSON.parse(content);
+let dataComoStringJson = JSON.stringify(data);
+```
 
 ### Modelo de datos
 
@@ -327,7 +344,7 @@ Para hacer el servicio más genérico, abstraer el tipo de datos y permitir trab
 
 Creando el código de modo que el tipo de dato a manejar sea parametrizable, el mismo código funciona para cualquier tipo de dato que, en este caso concreto, contenga un atributo `id` de tipo `number`. Esta condición se indica en la configuración de la parametrización así: `<T extends { id: number }>`
 
-Si en nuestra aplicación modelamos conceptos como Usuario, Mascota, Curso, Tema, Alumno, Producto... etc nos ahorramos replicar el mismo código por cada uno de los tipos. 
+Si en nuestra aplicación modelamos conceptos como Usuario, Mascota, Curso, Tema, Alumno, Producto... etc nos ahorramos replicar el mismo código por cada uno de los tipos.
 
 ```typescript
 const filePath = join(dataFolderPath, 'db.users.json');
