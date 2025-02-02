@@ -79,6 +79,20 @@ const dbUser = argv.dbUser || 'unknown';
 const dbPassword = argv.dbPassword || 'unknown';
 ```
 
+Podemos configurar el parseo que ejecuta `minimist` pasándole en un segundo argumento un objeto de configuración. Para indicarle con qué tipo primitivo se debe interpretar cada argumento.
+
+Ejemplo: Congiruamos minimist para que interpete el argumento `enableLog` como booleano
+
+```typescript
+const argv = minimist(process.argv.slice(2), {
+  boolean: ['enableLog'],
+});
+
+const enableLog: boolean = argv.enableLog || false;
+
+console.log(`El log está ${enableLog ? 'habilitado' : 'deshabilitado'}`);
+```
+
 **Nota**: Se hace slice(2) porque los dos primeros argumentos no suelen interesar. Son:
 
 - path de nodejs
@@ -89,5 +103,5 @@ const dbPassword = argv.dbPassword || 'unknown';
 Ejemplo en que ejecutamos un script pasando valores en los argumentos `dbUri`, `dbUser` y `dbPassword` para configurar los datos de conexión a la base de datos.
 
 ```bash
- ~ node dist/arguments.js --dbUri="jdbc:mysql://localhost:3306/" --dbUser=root --dbPassword=296835
+ ~ node dist/arguments.js --dbUri="jdbc:mysql://localhost:3306/" --dbUser=root --dbPassword=296835 --enableLog
 ```
