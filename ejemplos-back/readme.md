@@ -30,6 +30,16 @@ Para consultar el valor de una variable de entorno concreta utilizamos `echo $<v
 xterm-256color
 ```
 
+### Declarar una variable de entorno
+
+Se declaran usando el comando `export <variable> = <texto>`
+
+```bash
+ ~  export DB_URI="jdbc:mysql://localhost:3306/"
+ ~  export DB_USER="root"
+ ~  export DB_PASSWORD="45678913";
+```
+
 ### Lectura de variables de entorno desde script javascript
 
 Están accesibles a través de la expresión `process.env.<nombre_variable>`
