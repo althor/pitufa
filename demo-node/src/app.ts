@@ -4,6 +4,7 @@ import cors from "cors";
 
 // Controllers (route handlers)
 import * as booksController from "./controllers/books";
+import * as baseController from "./controllers/base";
 
 // Create Express server
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * Primary app routes.
  */
+app.get("/", baseController.base)
 app.get("/books", booksController.findAll);
 app.get("/books/:id", booksController.findById);
 app.delete("/books/:id", booksController.deleteById);
