@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import * as BookService from "../services/books";
+import createDebug from "debug";
+
+const debug = createDebug("myapp:booksController");
 
 export async function findAll(req: Request, res: Response) {
-  console.log("/books invoked");
+  debug("/books invoked");
   BookService.findAll()
     .then((books) => {
       res.status(200).json(books);
@@ -15,7 +18,7 @@ export async function findAll(req: Request, res: Response) {
 }
 
 export async function findById(req: Request, res: Response) {
-  console.log("/books/:id invoked");
+  debug("/books/:id invoked");
   const id = parseInt(req.params.id);
   BookService.findById(id)
     .then((book) => {
@@ -35,7 +38,7 @@ export async function findById(req: Request, res: Response) {
 }
 
 export async function deleteById(req: Request, res: Response) {
-  console.log("/books/:id invoked");
+  debug("/books/:id invoked");
   const id = parseInt(req.params.id);
   BookService.deleteById(id)
     .then((result) => {
@@ -55,7 +58,7 @@ export async function deleteById(req: Request, res: Response) {
 }
 
 export async function create(req: Request, res: Response) {
-  console.log("/books invoked");
+  debug("/books invoked");
   const book = req.body;
   BookService.create(book)
     .then((book) => {

@@ -1,4 +1,7 @@
 import { Book } from "../models/book";
+import createDebug from "debug";
+
+const debug = createDebug("myapp:booksService");
 
 let books: Book[] = [];
 
@@ -12,14 +15,17 @@ books.push(new Book(++id, "1984", "George Orwell"));
 books.push(new Book(++id, "Brave New World", "Aldous Huxley"));
 
 export async function findAll() {
+  debug("Buscando todos los libros");
   return books;
 }
 
 export async function findById(id: number) {
+  debug("Buscando libro con id: ", id);
   return books.find((book) => book.id === id);
 }
 
 export async function deleteById(id: number) {
+  debug("Borrando libro con id: ", id);
   const index = books.findIndex((book) => book.id === id);
   if (index === -1) {
     return false;
@@ -29,6 +35,7 @@ export async function deleteById(id: number) {
 }
 
 export async function create(book: Book) {
+  debug("Creando libro: ", book);
   book.id = ++id;
   books.push(book);
   return book;
