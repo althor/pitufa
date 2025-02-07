@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sample Node.js Project",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "export DEBUG=myapp:*;node dist/server.js",
     "build": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.10",

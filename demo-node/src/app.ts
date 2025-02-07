@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
 import morgan from 'morgan';
+import createDebug from 'debug';
 
 // Controllers (route handlers)
 import * as booksController from "./controllers/books";
 import * as baseController from "./controllers/base";
+
+const debug = createDebug('myapp:app');
 
 // Create Express server
 const app = express();
@@ -28,4 +31,5 @@ app.post("/books", booksController.create);
 // Rutas expuestas para devolver páginas HTML, como si fuéramos un servidor apache por ejemplo
 app.get("/home", baseController.home); // En este caso para la ruta /home se devuelve el código HTML de la página que hace de home.
 
+debug('App initialized');
 export default app;
