@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sample Node.js Project",
   "scripts": {
-    "start": "export DEBUG=myapp:*;node dist/server.js",
+    "start": "export DEBUG=myapp:* && node dist/server.js",
     "build": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
