@@ -1,6 +1,6 @@
 import express from "express";
-import path from "path";
 import cors from "cors";
+import morgan from 'morgan';
 
 // Controllers (route handlers)
 import * as booksController from "./controllers/books";
@@ -13,6 +13,7 @@ const app = express();
 app.set("port", process.env.PORT || 3000);
 app.use(express.json());
 app.use(cors());
+app.use(morgan('common'));
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas API REST - servicios expuestos para gestión de entidades en modo rest.
