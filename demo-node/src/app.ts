@@ -18,10 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * Primary app routes.
  */
-app.get("/", baseController.base)
+app.get("/", baseController.base);
 app.get("/books", booksController.findAll);
 app.get("/books/:id", booksController.findById);
 app.delete("/books/:id", booksController.deleteById);
 app.post("/books", booksController.create);
+
+// Rutas que deuvelven HTMl
+app.get("/home", baseController.home);
 
 export default app;
