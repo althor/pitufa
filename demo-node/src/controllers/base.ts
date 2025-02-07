@@ -5,7 +5,7 @@ const debug = createDebug("myapp:baseController");
 
 export async function base(req: Request, res: Response) {
   debug("/ invoked");
-  res.send("Hola mundo!");
+  res.json({ message: "Hello World!" });
 }
 
 // Rutas que devuelven HTML - La idea es que se devuelva un HTML
