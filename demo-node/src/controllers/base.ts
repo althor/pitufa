@@ -10,7 +10,7 @@ export async function base(req: Request, res: Response) {
 
 // Ejemplo de un error que se produce en una función síncrona
 export function error(req: Request, res: Response) {
-  throw new Error("BROKEN");
+  throw new Error("Algo ha cascado");
 }
 
 // Ejemplo de un error que se produce en una función asíncrona
@@ -21,7 +21,7 @@ export async function errorAsync(
   next: NextFunction
 ) {
   try {
-    throw new Error("BROKEN");
+    throw new Error("Algo ha cascado");
   } catch (err) {
     next(err);
   }
