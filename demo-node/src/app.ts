@@ -15,16 +15,16 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-/**
- * Primary app routes.
- */
+// Rutas API REST - servicios expuestos para gestión de entidades en modo rest.
+// Devuelven y consumen formato JSON
 app.get("/", baseController.base);
 app.get("/books", booksController.findAll);
 app.get("/books/:id", booksController.findById);
 app.delete("/books/:id", booksController.deleteById);
 app.post("/books", booksController.create);
 
-// Rutas que deuvelven HTMl
-app.get("/home", baseController.home);
+
+// Rutas expuestas para devolver páginas HTML, como si fuéramos un servidor apache por ejemplo
+app.get("/home", baseController.home); // En este caso para la ruta /home se devuelve el código HTML de la página que hace de home.
 
 export default app;
