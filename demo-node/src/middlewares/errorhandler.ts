@@ -11,8 +11,10 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  debug(err);
+  // Logamos el detalle del error. Loga el stack trace del error
+  debug(err.stack);
 
+  // Generamos la respuesta de error para el cliente con estado 500 y un mensaje genérico
   res.status(500);
-  res.json({ error: err });
+  res.json({ error: "Internal Server Error" });
 };
