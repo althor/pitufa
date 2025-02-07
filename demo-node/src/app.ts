@@ -24,8 +24,8 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("common"));
 app.use(express.urlencoded({ extended: true }));
-app.use(logger1());
-app.use(logger2());
+app.use(logger1);
+app.use(logger2);
 
 const publicPath = resolve(__dirname, "../public");
 
