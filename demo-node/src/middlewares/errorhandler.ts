@@ -16,5 +16,5 @@ export const errorHandler = (
 
   // Generamos la respuesta de error para el cliente con estado 500 y un mensaje genérico
   res.status(500);
-  res.json({ error: "Internal Server Error" });
+  res.json({ error: err.message });
 };
