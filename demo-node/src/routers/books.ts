@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Rutas API REST - servicios expuestos para gestión de entidades en modo rest.
 router
-  .route("/books/:id")
+  .route("/:id")
   .get(booksController.findById)
   .delete(booksController.deleteById);
 

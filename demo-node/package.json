@@ -11,7 +11,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "latest",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

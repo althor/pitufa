@@ -12,6 +12,7 @@ export const errorHandler = (
   _next: NextFunction
 ) => {
   // Logamos el detalle del error. Loga el stack trace del error
+  debug("Error: ", err.message);
   debug(err.stack);
 
   // Generamos la respuesta de error para el cliente con estado 500 y un mensaje genérico

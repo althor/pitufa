@@ -6,35 +6,23 @@ const debug = createDebug("myapp:booksController");
 
 export async function findAll(req: Request, res: Response) {
   debug("/books invoked");
-  BookService.findAll()
-    .then((books) => {
-      res.status(200).json(books);
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
-    });
+  BookService.findAll().then((books) => {
+    res.status(200).json(books);
+  });
 }
 
 export async function findById(req: Request, res: Response) {
   debug("/books/:id invoked");
   const id = parseInt(req.params.id);
-  BookService.findById(id)
-    .then((book) => {
-      if (!book) {
-        res.status(404).json({
-          message: "Book not found",
-        });
-      } else {
-        res.status(200).json(book);
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
+  BookService.findById(id).then((book) => {
+    if (!book) {
+      res.status(404).json({
+        message: "Book not found",
       });
-    });
+    } else {
+      res.status(200).json(book);
+    }
+  });
 }
 
 export async function deleteById(req: Request, res: Response) {
@@ -51,9 +39,7 @@ export async function deleteById(req: Request, res: Response) {
       }
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
+      throw new Error("Internal Server Error!");
     });
 }
 
@@ -65,8 +51,6 @@ export async function create(req: Request, res: Response) {
       res.status(201).json(book);
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
+      throw new Error("Internal Server Error!");
     });
 }

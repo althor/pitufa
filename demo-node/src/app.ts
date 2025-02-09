@@ -11,6 +11,7 @@ import bookRouter from "./routers/books";
 import { logger1 } from "./middlewares/logger1";
 import { logger2 } from "./middlewares/logger2";
 import { errorHandler } from "./middlewares/errorhandler";
+import * as db from "./persistence/db";
 
 const debug = createDebug("myapp:app");
 
@@ -49,5 +50,11 @@ app.use("/pajaros", birdsRouter);
 app.get("/home", baseController.home); // En este caso para la ruta /home se devuelve el código HTML de la página que hace de home.
 
 app.use(errorHandler);
+
+// Inicialización de la base de datos
+db.connect();
+// db.initializeDatabase();
+
+
 debug("App initialized");
 export default app;

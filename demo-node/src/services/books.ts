@@ -1,5 +1,6 @@
 import { Book } from "../models/book";
 import createDebug from "debug";
+import * as db from "../persistence/db";
 
 const debug = createDebug("myapp:booksService");
 
@@ -14,17 +15,43 @@ books.push(new Book(++id, "To Kill a Mockingbird", "Harper Lee"));
 books.push(new Book(++id, "1984", "George Orwell"));
 books.push(new Book(++id, "Brave New World", "Aldous Huxley"));
 
-export async function findAll() {
+export async function findAll(): Promise<Book[]> {
   debug("Buscando todos los libros");
-  return books;
+
+  try {
+    let rows = await db.getAllRows("SELECT * FROM books");
+    debug("Rows: ", rows);
+    let books: Book[] = rows.map((row) => {
+      return new Book(row.id, row.title, row.author);
+    });
+    return books;
+  } catch (err) {
+    throw new Error("Internal Server Error!");
+  }
 }
 
-export async function findById(id: number) {
+export async function findById(id: number): Promise<Book | undefined> {
   debug("Buscando libro con id: ", id);
-  return books.find((book) => book.id === id);
+  // db.getOneRow(`SELECT * FROM books WHERE id = ${id}`).then((book) => {
+  //   return book;
+  // }).catch((err) => { return undefined; });
+
+  try {
+    let row = await db.getOneRow(`SELECT * FROM books WHERE id = ${id}`);
+    debug("Book: ", row);
+    if (row) {
+      const book = new Book(row.id, row.title, row.author);
+      return book;
+    } else {
+      return undefined;
+    }
+  } catch (err) {
+    throw new Error("Internal Server Error!");
+  }
+  // return books.find((book) => book.id === id);
 }
 
-export async function deleteById(id: number) {
+export async function deleteById(id: number): Promise<boolean> {
   debug("Borrando libro con id: ", id);
   const index = books.findIndex((book) => book.id === id);
   if (index === -1) {
@@ -34,7 +61,7 @@ export async function deleteById(id: number) {
   return true;
 }
 
-export async function create(book: Book) {
+export async function create(book: Book): Promise<Book> {
   debug("Creando libro: ", book);
   book.id = ++id;
   books.push(book);
