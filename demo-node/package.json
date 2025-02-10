@@ -4,12 +4,14 @@
   "description": "Sample Node.js Project",
   "scripts": {
     "start": "export DEBUG=myapp:* && node dist/server.js",
+    "start:dev": "cross-env NODE_ENV=dev DEBUG=myapp:* node --watch ./dist/server.js",
     "build": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "express": "latest",
     "morgan": "^1.10.0"
   },
