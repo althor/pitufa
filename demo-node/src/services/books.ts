@@ -14,17 +14,17 @@ books.push(new Book(++id, "To Kill a Mockingbird", "Harper Lee"));
 books.push(new Book(++id, "1984", "George Orwell"));
 books.push(new Book(++id, "Brave New World", "Aldous Huxley"));
 
-export async function findAll() {
+export function findAll() {
   debug("Buscando todos los libros");
   return books;
 }
 
-export async function findById(id: number) {
+export function findById(id: number) {
   debug("Buscando libro con id: ", id);
   return books.find((book) => book.id === id);
 }
 
-export async function deleteById(id: number) {
+export function deleteById(id: number) {
   debug("Borrando libro con id: ", id);
   const index = books.findIndex((book) => book.id === id);
   if (index === -1) {
@@ -34,7 +34,7 @@ export async function deleteById(id: number) {
   return true;
 }
 
-export async function create(book: Book) {
+export function create(book: Book) {
   debug("Creando libro: ", book);
   book.id = ++id;
   books.push(book);

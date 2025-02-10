@@ -5,65 +5,37 @@ import { ApplicationError } from "../errors/ApplicationError";
 
 const debug = createDebug("myapp:booksController");
 
-export async function findAll(req: Request, res: Response, next: NextFunction) {
+export function findAll(req: Request, res: Response) {
   debug("/books invoked");
-  BookService.findAll()
-    .then((books) => {
-      res.status(200).json(books);
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const books = BookService.findAll();
+  res.status(200).json(books);
 }
 
-export async function findById(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function findById(req: Request, res: Response, next: NextFunction) {
   debug("/books/:id invoked");
   const id = parseInt(req.params.id);
-  BookService.findById(id)
-    .then((book) => {
-      if (!book) {
-        throw new ApplicationError("Not found", 404, "Book not found");
-      } else {
-        res.status(200).json(book);
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const book = BookService.findById(id);
+  if (!book) {
+    throw new ApplicationError("Not found", 404, "Book not found");
+  } else {
+    res.status(200).json(book);
+  }
 }
 
-export async function deleteById(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function deleteById(req: Request, res: Response, next: NextFunction) {
   debug("/books/:id invoked");
   const id = parseInt(req.params.id);
-  BookService.deleteById(id)
-    .then((result) => {
-      if (!result) {
-        throw new ApplicationError("Not found", 404, "Book not found");
-      } else {
-        res.status(204).send();
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const deleted = BookService.deleteById(id);
+  if (!deleted) {
+    throw new ApplicationError("Not found", 404, "Book not found");
+  } else {
+    res.status(204).send();
+  }
 }
 
-export async function create(req: Request, res: Response, next: NextFunction) {
+export function create(req: Request, res: Response) {
   debug("/books invoked");
-  const book = req.body;
-  BookService.create(book)
-    .then((book) => {
-      res.status(201).json(book);
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const bookData = req.body;
+  const createdBook = BookService.create(bookData);
+  res.status(201).json(createdBook);
 }
