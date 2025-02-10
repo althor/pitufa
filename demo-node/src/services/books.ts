@@ -53,11 +53,18 @@ export async function findById(id: number): Promise<Book | undefined> {
 
 export async function deleteById(id: number): Promise<boolean> {
   debug("Borrando libro con id: ", id);
-  const index = books.findIndex((book) => book.id === id);
-  if (index === -1) {
+
+  // Comprobar si el libro existe
+  let row = await db.getOneRow(`SELECT * FROM books WHERE id = ${id}`);
+  debug("Book: ", row);
+
+  if (row) {
+    await db.runQuery(`DELETE FROM books WHERE id = ${id}`);
+    return true;
+  } else {
     return false;
   }
-  books.splice(index, 1);
+
   return true;
 }
 
