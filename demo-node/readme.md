@@ -126,3 +126,58 @@ Su responsabilidad es realizar la lógica funcional. Les da igual que haya una p
 Ubicados en la carpeta `services`
 
 Son invocados desde la capa de controladores, y un componente de servicio puede apoyarse en otro componente de servicio para realizar la lógica funcional. Así el código queda bien organizado, se evita duplicar código.
+
+### Persistencia usando base de datos
+
+Para usar como persistencia en base de datos hay muchísimas opciones (Mysql, Maria db, postgre, oracle, sqlite...) https://expressjs.com/en/guide/database-integration.html
+
+Para usar en el ejemplo vamos a usar SQLite que es una base de datos para apliciones pequeñas que no necesita instalar y levantar un servidor de base de datos. SQLite usa para su persistencia un simple fichero que gestiona, así que no hace falta instalar software adicional para integrarla.
+
+#### librería de sqlite
+
+Librerías que proporcionen acceso a una bd sqllite hay muchas. He elegido sqlite3 que es de la que habla la documentación de Express y no es complicada de integrar buscando ejemplo.s
+https://www.npmjs.com/package/sqlite3
+https://github.com/TryGhost/node-sqlite3/wiki/API
+
+Dependencia: `"sqlite3": "^5.1.7"`
+
+#### Organización
+
+Lo mismo de siempre. Es conveniente tener el código organizado de modo que cada pieza sea la encargada de algo. Al añadir persistencia en base de datos pues vamos a necesitar alguna pieza que sea la encargada de interactuar con la base de datos. De la misma manera que si me tengo que integrar con la api rest que exponga twitter haría una pieza encargada de interactuar con twitter y no tendría código que tenga que ver con twitter en otros sitios del proyecto.
+
+Para éllo he creado la carpeta `persistence` para tener ubicado ahí la pieza o piezas que interactúen con la base de datos. Como es un ejemplo pequeño y además solo tenemos una base de datos, que es lo habitual, organizamos este código en un fichero llamado `db.ts`
+
+#### Uso
+
+##### conexión
+
+Cuando interactúas con una base de datos como persistencia lo primero que hay que hacer siempre es autoconectar contra la base de datos al arrancar nuestra aplicación/servidor.
+
+Entonces, en el fichero he definido una función llamada `connect` que se encarga de conectar contra la base de datos y guardar la referencia de la base de datos en una variable global para poder usarla en el resto de funcionalidades. En este caso este objeto es de un tipo llamado `Database` definido en la librería `sqlite3`.
+
+En el arranque del servidor invocamos automáticamente a esta función para conectar a la base de datos. Lo he puesto como último paso de la creación de la aplicación Express.
+
+##### ejecución de queries
+
+En nuestra aplicación vamos a tener que hacer acciones de:
+
+- consulta para obtener registros de la base de datos
+- inserción de nuevos datos
+- borrado de datos
+
+Es conveniente, en toda aplicación, definir todas las funciones que te vengan bien y que tengan sentido, es decir, que cada una te sirva para realizar algo concreto.
+
+En nuestro caso pues he definido funciones independientes para:
+
+- ejecutar una query que espera obtener un solo registro
+- ejecutar una query que espera obtener una lista de registros
+- ejecutar una query de borrado
+- ejecutar una query de modificaión de datos
+
+##### integración
+
+Si al recibir una petición desde fuera es atendida por un primero elemento controlador que se apoya en un elemento de servicio para aplicar la lógica de negocio que usa un repositorio de libros en memoria ahora habrá que integrarlo contra el acceso a base de datos para persistir los datos en un sistema real y que no desaparezca cuando apagamos el servidor.
+
+De modo que el flujo de la lógica completa de una petición quede:
+
+`Petición http desde fuera -> controlador de la petición -> componente que atiende la lógica funcional -> componente que interactúa con la base de datos para persistir la información`
