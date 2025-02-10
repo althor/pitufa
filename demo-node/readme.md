@@ -94,7 +94,7 @@ Por ejemplo, si queremos que el controlador de errores gestione la respuesta par
 throw new ApplicationError("Not found", 404, "Book not found");
 ```
 
-#### capturador de errores
+### capturador de errores
 
 Está definido en `middlewares/errorhandler.ts`
 
@@ -107,7 +107,7 @@ Se encarga de:
 - Si es un `Error` genereamos una respuesta 500 con mensaje estándar de respuesta
 - Si es un `ApplicationError` generamos una respuesta usando el código y el mensaje encapsuldos en el objeto de error
 
-#### Controladores de peticiones
+### Controladores de peticiones
 
 Los componentes que se encargan de atender la petición http que ha llegado y de preparar más tarde la respuesta se conocen comúnmente como controladores.
 
@@ -117,7 +117,7 @@ De modo que un controlador se encarga de atender y preparar la respuesta, pero n
 
 Ubicados en la carpeta `controllers`
 
-#### Componentes de servicio
+### Componentes de servicio
 
 Los componentes que se encargan de implementar la lógica funcional de la aplicación se conocen comúnmente como servicios.
 
