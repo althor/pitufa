@@ -1,63 +1,62 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import * as BookService from "../services/books";
 import createDebug from "debug";
+import { ApplicationError } from "../errors/ApplicationError";
 
 const debug = createDebug("myapp:booksController");
 
-export async function findAll(req: Request, res: Response) {
+export async function findAll(req: Request, res: Response, next: NextFunction) {
   debug("/books invoked");
   BookService.findAll()
     .then((books) => {
       res.status(200).json(books);
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
+      next(err);
     });
 }
 
-export async function findById(req: Request, res: Response) {
+export async function findById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   debug("/books/:id invoked");
   const id = parseInt(req.params.id);
   BookService.findById(id)
     .then((book) => {
       if (!book) {
-        res.status(404).json({
-          message: "Book not found",
-        });
+        throw new ApplicationError("Not found", 404, "Book not found");
       } else {
         res.status(200).json(book);
       }
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
+      next(err);
     });
 }
 
-export async function deleteById(req: Request, res: Response) {
+export async function deleteById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   debug("/books/:id invoked");
   const id = parseInt(req.params.id);
   BookService.deleteById(id)
     .then((result) => {
       if (!result) {
-        res.status(404).json({
-          message: "Book not found",
-        });
+        throw new ApplicationError("Not found", 404, "Book not found");
       } else {
         res.status(204).send();
       }
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
+      next(err);
     });
 }
 
-export async function create(req: Request, res: Response) {
+export async function create(req: Request, res: Response, next: NextFunction) {
   debug("/books invoked");
   const book = req.body;
   BookService.create(book)
@@ -65,8 +64,6 @@ export async function create(req: Request, res: Response) {
       res.status(201).json(book);
     })
     .catch((err) => {
-      res.status(500).json({
-        message: "Internal Server Error!",
-      });
+      next(err);
     });
 }

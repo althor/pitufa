@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import createDebug from "debug";
+import { ApplicationError } from "../errors/ApplicationError";
 
 const debug = createDebug("myapp:baseController");
 
@@ -10,7 +11,7 @@ export async function base(req: Request, res: Response) {
 
 // Ejemplo de un error que se produce en una función síncrona
 export function error(req: Request, res: Response) {
-  throw new Error("Algo ha cascado");
+  throw new ApplicationError("Algo ha cascado", 500, "Algo ha cascado");
 }
 
 // Ejemplo de un error que se produce en una función asíncrona
@@ -21,7 +22,7 @@ export async function errorAsync(
   next: NextFunction
 ) {
   try {
-    throw new Error("Algo ha cascado");
+    throw new ApplicationError("Algo ha cascado", 500, "Algo ha cascado");
   } catch (err) {
     next(err);
   }
