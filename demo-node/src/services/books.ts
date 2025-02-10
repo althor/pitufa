@@ -54,23 +54,22 @@ export async function findById(id: number): Promise<Book | undefined> {
 export async function deleteById(id: number): Promise<boolean> {
   debug("Borrando libro con id: ", id);
 
-  // Comprobar si el libro existe
-  let row = await db.getOneRow(`SELECT * FROM books WHERE id = ${id}`);
-  debug("Book: ", row);
-
-  if (row) {
-    await db.runQuery(`DELETE FROM books WHERE id = ${id}`);
-    return true;
-  } else {
-    return false;
-  }
-
-  return true;
+  let deleted = await db.runDeleteQuery(`DELETE FROM books WHERE id = ${id}`);
+  return deleted;
 }
 
-export async function create(book: Book): Promise<Book> {
+export async function create(book: Book) {
   debug("Creando libro: ", book);
-  book.id = ++id;
-  books.push(book);
-  return book;
+
+  //Ejecutamos la inserción en la base de datos y obtenemos el id del nuevo libro
+  const newId = await db.runQuery(
+    "Insert into books (title, author) values ('" +
+      book.title +
+      "', '" +
+      book.author +
+      "')"
+  );
+
+  // Buscamos el libro recién insertado y lo devolvemos
+  return findById(newId);
 }

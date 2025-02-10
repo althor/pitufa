@@ -19,9 +19,9 @@ export function initializeDatabase(): void {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           title TEXT NOT NULL,
           author TEXT NOT NULL,
-          isbn TEXT NOT NULL,
-          year INTEGER NOT NULL,
-          pages INTEGER NOT NULL
+          isbn TEXT NULL,
+          year INTEGER NULL,
+          pages INTEGER NULL
       )
   `;
 
@@ -30,66 +30,87 @@ export function initializeDatabase(): void {
       console.error("Error creating users table:", err);
     } else {
       console.log("Users table initialized successfully");
+      const sampleData = [
+        {
+          title: "The Catcher in the Rye",
+          author: "J.D. Salinger",
+          isbn: "978-3-16-148410-2",
+          year: 1951,
+          pages: 230,
+        },
+        {
+          title: "To Kill a Mockingbird",
+          author: "Harper Lee",
+          isbn: "978-3-16-148410-3",
+          year: 1960,
+          pages: 240,
+        },
+        {
+          title: "1984",
+          author: "George Orwell",
+          isbn: "978-3-16-148410-4",
+          year: 1949,
+          pages: 250,
+        },
+        {
+          title: "Brave New World",
+          author: "Aldous Huxley",
+          isbn: "978-3-16-148410-5",
+          year: 1932,
+          pages: 260,
+        },
+      ];
+
+      sampleData.forEach((book) => {
+        const insertQuery = `INSERT INTO books (title, author, isbn, year, pages) VALUES (?, ?, ?, ?, ?)`;
+        db.run(
+          insertQuery,
+          [book.title, book.author, book.isbn, book.year, book.pages],
+          (err) => {
+            if (err) {
+              console.error(
+                "Error inserting sample data into books table:",
+                err
+              );
+            } else {
+              console.log(
+                `Sample data for "${book.title}" inserted successfully`
+              );
+            }
+          }
+        );
+      });
     }
   });
-  const sampleData = [
-    {
-      title: "The Catcher in the Rye",
-      author: "J.D. Salinger",
-      isbn: "978-3-16-148410-2",
-      year: 1951,
-      pages: 230,
-    },
-    {
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      isbn: "978-3-16-148410-3",
-      year: 1960,
-      pages: 240,
-    },
-    {
-      title: "1984",
-      author: "George Orwell",
-      isbn: "978-3-16-148410-4",
-      year: 1949,
-      pages: 250,
-    },
-    {
-      title: "Brave New World",
-      author: "Aldous Huxley",
-      isbn: "978-3-16-148410-5",
-      year: 1932,
-      pages: 260,
-    },
-  ];
-
-  sampleData.forEach((book) => {
-    const insertQuery = `INSERT INTO books (title, author, isbn, year, pages) VALUES (?, ?, ?, ?, ?)`;
-    db.run(
-      insertQuery,
-      [book.title, book.author, book.isbn, book.year, book.pages],
-      (err) => {
-        if (err) {
-          console.error("Error inserting sample data into books table:", err);
-        } else {
-          console.log(`Sample data for "${book.title}" inserted successfully`);
-        }
-      }
-    );
-  });
 }
-export function runQuery(query: string): Promise<any> {
+
+// Método para ejecutar insert o update. Devuelve el id del registro insertado
+export function runQuery(query: string): Promise<number> {
   return new Promise((resolve, reject) => {
     db.run(query, function (err) {
       if (err) {
         reject(err);
       } else {
-        resolve(this);
+        resolve(this.lastID);
       }
     });
   });
 }
 
+// Método para ejecutar una query de borrado. Comprueba si se ha borrado una fila y devuelve booleano indicando si se ha borrado o no.
+export function runDeleteQuery(query: string): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    db.run(query, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(this.changes == 1);
+      }
+    });
+  });
+}
+
+// Método para ejecutar select que devuelve varias filas
 export function getAllRows(query: string): Promise<any[]> {
   return new Promise((resolve, reject) => {
     db.all(query, (err, rows) => {
@@ -102,6 +123,7 @@ export function getAllRows(query: string): Promise<any[]> {
   });
 }
 
+// Método para ejecutar select que devuelve una única fila
 export function getOneRow(query: string): Promise<any> {
   return new Promise((resolve, reject) => {
     db.get(query, (err, row) => {
