@@ -67,7 +67,7 @@ export async function create(book: Book) {
       book.title +
       "', '" +
       book.author +
-      "')"
+      "') RETURNING *"
   );
 
   // Buscamos el libro recién insertado y lo devolvemos

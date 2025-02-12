@@ -131,15 +131,15 @@ Son invocados desde la capa de controladores, y un componente de servicio puede 
 
 Para usar como persistencia en base de datos hay muchísimas opciones (Mysql, Maria db, postgre, oracle, sqlite...) https://expressjs.com/en/guide/database-integration.html
 
-Para usar en el ejemplo vamos a usar SQLite que es una base de datos para apliciones pequeñas que no necesita instalar y levantar un servidor de base de datos. SQLite usa para su persistencia un simple fichero que gestiona, así que no hace falta instalar software adicional para integrarla.
+Este ejemplo utiliza PostgreSQl como persistencia creada en https://supabase.com
 
-#### librería de sqlite
+#### librería de postgre
 
 Librerías que proporcionen acceso a una bd sqllite hay muchas. He elegido sqlite3 que es de la que habla la documentación de Express y no es complicada de integrar buscando ejemplo.s
-https://www.npmjs.com/package/sqlite3
-https://github.com/TryGhost/node-sqlite3/wiki/API
+https://www.npmjs.com/package/pg-promise
+https://github.com/vitaly-t/pg-promise-demo/tree/master
 
-Dependencia: `"sqlite3": "^5.1.7"`
+Dependencia: `"pg-promise": "^11.10.2"`
 
 #### Organización
 
@@ -153,9 +153,25 @@ Para éllo he creado la carpeta `persistence` para tener ubicado ahí la pieza o
 
 Cuando interactúas con una base de datos como persistencia lo primero que hay que hacer siempre es autoconectar contra la base de datos al arrancar nuestra aplicación/servidor.
 
-Entonces, en el fichero he definido una función llamada `connect` que se encarga de conectar contra la base de datos y guardar la referencia de la base de datos en una variable global para poder usarla en el resto de funcionalidades. En este caso este objeto es de un tipo llamado `Database` definido en la librería `sqlite3`.
+Entonces, en el fichero he definido una función llamada `connect` que se encarga de conectar contra la base de datos y guardar la referencia de la base de datos en una variable global para poder usarla en el resto de funcionalidades. En este caso este objeto es de un tipo llamado `IDatabase` definido en la librería `pg-promise`.
 
 En el arranque del servidor invocamos automáticamente a esta función para conectar a la base de datos. Lo he puesto como último paso de la creación de la aplicación Express.
+
+Las credenciales de acceso están configuradas para obtenerlas a través de variable de entorno:
+
+Linux:
+
+```bash
+export DBPWD=xxxxxxx
+export DBUSER=xxxxxxxx
+```
+
+windows:
+
+```bash
+set DBPWD=xxxxxxx
+set DBUSER=xxxxxxxx
+```
 
 ##### ejecución de queries
 

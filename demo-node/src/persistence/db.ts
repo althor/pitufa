@@ -1,137 +1,59 @@
-import { Database } from "sqlite3";
+import { IDatabase } from "pg-promise";
+import pgPromise from "pg-promise"; // pg-promise core library
+import { IResult } from "pg-promise/typescript/pg-subset";
 import createDebug from "debug";
 
 const debug = createDebug("myapp:db");
-let db: Database;
+let db: IDatabase<any>;
 
 export const connect = () => {
-  db = new Database("./database.sqlite");
+  const pgp = pgPromise({});
+  const user = process.env.DBUSER;
+  const pwd = process.env.DBPWD;
+  db = pgp(
+    `postgresql://${user}:${pwd}@aws-0-eu-central-1.pooler.supabase.com:5432/postgres`
+  );
 };
-
-export const close = () => {
-  db.close();
-};
-
-export function initializeDatabase(): void {
-  // Create users table if it doesn't exist
-  const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS books (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          title TEXT NOT NULL,
-          author TEXT NOT NULL,
-          isbn TEXT NULL,
-          year INTEGER NULL,
-          pages INTEGER NULL
-      )
-  `;
-
-  db.run(createTableQuery, (err) => {
-    if (err) {
-      console.error("Error creating users table:", err);
-    } else {
-      console.log("Users table initialized successfully");
-      const sampleData = [
-        {
-          title: "The Catcher in the Rye",
-          author: "J.D. Salinger",
-          isbn: "978-3-16-148410-2",
-          year: 1951,
-          pages: 230,
-        },
-        {
-          title: "To Kill a Mockingbird",
-          author: "Harper Lee",
-          isbn: "978-3-16-148410-3",
-          year: 1960,
-          pages: 240,
-        },
-        {
-          title: "1984",
-          author: "George Orwell",
-          isbn: "978-3-16-148410-4",
-          year: 1949,
-          pages: 250,
-        },
-        {
-          title: "Brave New World",
-          author: "Aldous Huxley",
-          isbn: "978-3-16-148410-5",
-          year: 1932,
-          pages: 260,
-        },
-      ];
-
-      sampleData.forEach((book) => {
-        const insertQuery = `INSERT INTO books (title, author, isbn, year, pages) VALUES (?, ?, ?, ?, ?)`;
-        db.run(
-          insertQuery,
-          [book.title, book.author, book.isbn, book.year, book.pages],
-          (err) => {
-            if (err) {
-              console.error(
-                "Error inserting sample data into books table:",
-                err
-              );
-            } else {
-              console.log(
-                `Sample data for "${book.title}" inserted successfully`
-              );
-            }
-          }
-        );
-      });
-    }
-  });
-}
 
 // Método para ejecutar insert o update. Devuelve el id del registro insertado
-export function runQuery(query: string): Promise<number> {
-  return new Promise((resolve, reject) => {
-    db.run(query, function (err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(this.lastID);
-      }
-    });
-  });
+export async function runQuery(query: string) {
+  try {
+    const result = await db.one(query);
+    debug(result);
+    return result.id;
+  } catch (e) {
+    return false;
+  }
 }
 
 // Método para ejecutar una query de borrado. Comprueba si se ha borrado una fila y devuelve booleano indicando si se ha borrado o no.
-export function runDeleteQuery(query: string): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    db.run(query, function (err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(this.changes == 1);
-      }
-    });
-  });
+export async function runDeleteQuery(query: string) {
+  try {
+    const result: IResult = await db.result(query);
+    return result.rowCount > 0;
+  } catch (e) {
+    throw e;
+  }
 }
 
 // Método para ejecutar select que devuelve varias filas
-export function getAllRows(query: string): Promise<any[]> {
-  return new Promise((resolve, reject) => {
-    db.all(query, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
-  });
+export async function getAllRows(query: string): Promise<any[]> {
+  try {
+    debug("ejecutando query: ", query);
+    const row = await db.any(query);
+    debug(row);
+    return row;
+  } catch (e) {
+    throw e;
+  }
 }
 
 // Método para ejecutar select que devuelve una única fila
-export function getOneRow(query: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    db.get(query, (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
-    });
-  });
+export async function getOneRow(query: string) {
+  try {
+    const row = await db.one(query);
+    return row;
+  } catch (e) {
+    throw e;
+  }
 }

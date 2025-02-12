@@ -53,8 +53,6 @@ app.use(errorHandler);
 
 // Inicialización de la base de datos
 db.connect();
-db.initializeDatabase();
-
 
 debug("App initialized");
 export default app;
