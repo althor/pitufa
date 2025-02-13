@@ -32,10 +32,6 @@ export async function findAll(): Promise<Book[]> {
 
 export async function findById(id: number): Promise<Book | undefined> {
   debug("Buscando libro con id: ", id);
-  // db.getOneRow(`SELECT * FROM books WHERE id = ${id}`).then((book) => {
-  //   return book;
-  // }).catch((err) => { return undefined; });
-
   try {
     let row = await db.getOneRow(`SELECT * FROM books WHERE id = ${id}`);
     debug("Book: ", row);
@@ -67,7 +63,7 @@ export async function create(book: Book) {
       book.title +
       "', '" +
       book.author +
-      "') RETURNING *"
+      "')"
   );
 
   // Buscamos el libro recién insertado y lo devolvemos

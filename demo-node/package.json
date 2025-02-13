@@ -14,13 +14,14 @@
     "cross-env": "^7.0.3",
     "express": "latest",
     "morgan": "^1.10.0",
-    "pg-promise": "^11.10.2"
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
+    "@types/mysql": "^2.15.26",
     "@types/node": "^22.10.10",
     "express": "latest",
     "typescript": "^5.7.3"
