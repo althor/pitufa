@@ -135,7 +135,6 @@ Este ejemplo utiliza PostgreSQl como persistencia creada en https://supabase.com
 
 #### librería de postgre
 
-Librerías que proporcionen acceso a una bd sqllite hay muchas. He elegido sqlite3 que es de la que habla la documentación de Express y no es complicada de integrar buscando ejemplo.s
 https://www.npmjs.com/package/pg-promise
 https://github.com/vitaly-t/pg-promise-demo/tree/master
 
