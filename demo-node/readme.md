@@ -137,7 +137,7 @@ Este ejemplo utiliza MySQL como persistencia creada en local.
 
 https://www.npmjs.com/package/mysql
 
-Dependencia: `"mysql": "^2.18.1"`
+Dependencia: `"mysql2": "^3.12.0"`
 
 #### Organización
 
