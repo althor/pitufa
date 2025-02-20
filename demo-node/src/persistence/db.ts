@@ -32,12 +32,14 @@ export const connect = async () => {
 // Método para ejecutar insert o update. Devuelve el id del registro insertado
 export async function runQuery(query: string) {
   const [result] = await connection.query<ResultSetHeader>(query);
+  debug("Result: ", result);
   return result.insertId;
 }
 
 // Método para ejecutar una query de borrado. Comprueba si se ha borrado una fila y devuelve booleano indicando si se ha borrado o no.
 export async function runDeleteQuery(query: string) {
   const [result] = await connection.query<ResultSetHeader>(query);
+  debug("Result: ", result);
   return result.affectedRows > 0;
 }
 
@@ -45,6 +47,7 @@ export async function runDeleteQuery(query: string) {
 export async function getAllRows(query: string) {
   const q = `select genere_id as id, name from generes where genere_id = ?`;
   const [rows] = await connection.query<any[]>(query);
+  debug("estructura de rows", rows);
   return rows;
 }
 
@@ -56,5 +59,6 @@ export async function getAllRows(query: string) {
 export async function getOneRow(query: string) {
   const q = `select genere_id as id, name from generes where genere_id = ?`;
   const [rows] = await connection.query<any[]>(query);
+  debug("estructura de rows", rows);
   return rows[0];
 }
