@@ -4,17 +4,6 @@ import * as db from "../persistence/db";
 
 const debug = createDebug("myapp:booksService");
 
-let books: Book[] = [];
-
-// Initialize with dummy data
-let id = 0;
-books.push(new Book(++id, "The Great Gatsby", "F. Scott Fitzgerald"));
-books.push(new Book(++id, "A Farewell to Arms", "Ernest Hemingway"));
-books.push(new Book(++id, "The Catcher in the Rye", "J.D. Salinger"));
-books.push(new Book(++id, "To Kill a Mockingbird", "Harper Lee"));
-books.push(new Book(++id, "1984", "George Orwell"));
-books.push(new Book(++id, "Brave New World", "Aldous Huxley"));
-
 export async function findAll(): Promise<Book[]> {
   debug("Buscando todos los libros");
 
